@@ -19,7 +19,7 @@ def validatechallenge(answer_dict,url):
     return content
 
 # Start of solution to the challenge
-def findneedle(data):
+def findneedle(data,token):
     json_data      = json.loads(data)
     needle         = json_data['result']['needle']
     haystack       = json_data['result']['haystack']
@@ -27,7 +27,7 @@ def findneedle(data):
 
     for stuff in haystack:
         if needle == stuff:
-            return {'token':'rmUQt128vF','needle':index}
+            return {'token':token,'needle':index}
         index += 1
 # End of solution to the challenge
 def getGrades(token):
@@ -45,7 +45,7 @@ def getGrades(token):
 def main():
     my_token       = 'rmUQt128vF'
     challenge_data = getchallenge(my_token,'http://challenge.code2040.org/api/haystack')
-    answer_data    = findneedle(challenge_data)
+    answer_data    = findneedle(challenge_data,my_token)
     validation     = validatechallenge(answer_data,'http://challenge.code2040.org/api/validateneedle')
 
     print "============== API response =================="
