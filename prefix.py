@@ -24,6 +24,7 @@ def prefix(data,token):
     array          = result['array']
     prefix         = result['prefix']
     new_array      = []
+    
     for stuff in array:
         if stuff.find(str(prefix)) < 0:
             new_array.append(stuff)
