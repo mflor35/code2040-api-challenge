@@ -35,6 +35,7 @@ def getGrades(token):
     response       = urllib2.urlopen(request, json.dumps(info))
     content        = response.read()
     result         = json.loads(content)['result']
+    print
     print "============== Grades ========================"
-    for challenge in result:
+    for challenge in sorted(result.keys()):
         print challenge + '\t\t' + str(result[challenge])

@@ -1,4 +1,5 @@
-
+import CODE2040API
+import json
 def prefix(data,token):
     result         = json.loads(data)['result']
     array          = result['array']
@@ -13,10 +14,10 @@ def prefix(data,token):
 
 def main():
     my_token       = 'rmUQt128vF'
-    challenge_data = getchallenge(my_token,'http://challenge.code2040.org/api/prefix')
+    challenge_data = CODE2040API.getchallenge(my_token,'http://challenge.code2040.org/api/prefix')
     answer_data    = prefix(challenge_data,my_token)
-    validation     = validatechallenge(answer_data,'http://challenge.code2040.org/api/validateprefix')
+    validation     = CODE2040API.validatechallenge(answer_data,'http://challenge.code2040.org/api/validateprefix')
     print "============== API response =================="
     print json.loads(validation)['result']
-    getGrades(my_token)
+    CODE2040API.getGrades(my_token)
 main()
