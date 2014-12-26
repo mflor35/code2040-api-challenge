@@ -26,7 +26,9 @@ def validatechallenge(answer_dict,url):
     request.add_header('Conten-Type','application\json')
     response       = urllib2.urlopen(request,json.dumps(answer_dict))
     content        = response.read()
-    return content
+    print ""
+    print "------- API response-------------- "
+    return json.loads(content)['result']
 
 def getGrades(token):
     info           = {'token':token}

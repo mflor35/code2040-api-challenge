@@ -23,15 +23,21 @@ def prefix(data,token):
     return {'token':token,'array':new_array}
 
 def findneedle(data,token):
+    print "------------------------"
+    print "Needle In The Haystack"
+    print "------------------------"
     json_data      = json.loads(data)
     needle         = json_data['result']['needle']
     haystack       = json_data['result']['haystack']
     index          = 0
-
+    print "Needle: ", needle
+    print "Haystack: ", haystack
     for stuff in haystack:
         if needle == stuff:
+            print "Index of needle: ", index
             return {'token':token,'needle':index}
         index += 1
+
 
 def reversed_string(data,token):
 
@@ -46,9 +52,15 @@ def reversed_string(data,token):
     return {'token':token, 'string':reversed_str}
 
 def datingGame(data,token):
+    print "---------------------------"
+    print "The Dating Game"
+    print "---------------------------"
     result         = json.loads(data)['result']
     datestamp      = result['datestamp']
     interval       = result['interval']
     time           = iso8601.parse_date(datestamp)
     time           = time + datetime.timedelta(seconds=interval)
+    print "Datestamp: ", datestamp
+    print "Interval: ", interval
+    print "Date + Interval: ", time
     return {'token':token, 'datestamp':str(time.isoformat())}
