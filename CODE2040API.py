@@ -1,43 +1,34 @@
-import urllib.request, urllib.error, urllib.parse
+import requests  # Installation required
 import json
 
-def register(email,github):
-    url     = 'http://challenge.code2040.org/api/register'
-    values  = { 'email': email, 'github':github}
-    req     = urllib.request.Request(url)
-    req.add_header('Content-Type', 'Application/json')
-    rsp    = urllib.request.urlopen(req, json.dumps(values))
-    content = rsp.read()
 
+def register(registration_url, token, github):
+
+    values = {'token': token, 'github': github}
+    rsp = requests.post(registration_url, data=values)
+    content = rsp.text
     return content
 
-#  getchallenge takes in a token and url and returns a sring with the challenge data
-def getchallenge(token,url):
-    info           = {'token':token}
-    request        = urllib.request.Request(url)
-    request.add_header('Conten-Type', 'application/json')
-    response       = urllib.request.urlopen(request, json.dumps(info))
-    content        = response.read()
+
+def getchallenge(token, url):
+    info = {'token': token}
+    rsp = requests.post(url, data=info)
+    content = rsp.text
     return content
 
-# Validatechallenge() takes in a json string with the answer for the challenge and url
-def validatechallenge(answer_dict,url):
-    request        = urllib.request.Request(url)
-    request.add_header('Conten-Type','application\json')
-    response       = urllib.request.urlopen(request,json.dumps(answer_dict))
-    content        = response.read()
-    print("")
-    print("------- API response-------------- ")
-    return json.loads(content)['result']
 
-def getGrades(token):
-    info           = {'token':token}
-    request        = urllib.request.Request('http://challenge.code2040.org/api/status')
-    request.add_header('Conten-Type', 'application/json')
-    response       = urllib.request.urlopen(request, json.dumps(info))
-    content        = response.read()
-    result         = json.loads(content)['result']
+def validatechallenge(answer_dict, url):
+    rsp = requests.post(url, data=answer_dict)
+    content = rsp.text
+    return content
+
+
+def status(url, token):
+    info = {'token': token}
+    rsp = requests.post(url, data=info)
+    content = rsp.text
+    result = json.loads(content)
     print()
-    print("============== Grades ========================")
+    print("** STATUS **")
     for challenge in sorted(result.keys()):
         print(challenge + '\t\t' + str(result[challenge]))
